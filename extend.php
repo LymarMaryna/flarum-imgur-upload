@@ -12,8 +12,8 @@ return [
         ->js(__DIR__ . '/js/dist/admin.js'),
     new Extend\Locales(__DIR__ . '/locale'),
     (new Extend\Settings)
-        ->serializeToForum('imgur-upload.client-id', 'imgur-upload.client-id')
-        ->serializeToForum('imgur-upload.hide-markdown-image', 'imgur-upload.hide-markdown-image')
-        ->serializeToForum('imgur-upload.embed-type', 'imgur-upload.embed-type')
-        ->serializeToForum('imgur-upload.allow-paste', 'imgur-upload.allow-paste')
+        ->serializeToForum('imgur-upload.aws-bucket', 'imgur-upload.aws-bucket')
+        ->serializeToForum('imgur-upload.aws-region', 'imgur-upload.aws-region')
+        ->serializeToForum('imgur-upload.aws-key', 'imgur-upload.aws-key')
+        ->serializeToForum('imgur-upload.aws-secret', 'imgur-upload.aws-secret')
 ];
