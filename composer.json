@@ -1,5 +1,5 @@
 {
-    "name": "lymarmaryna/flarum-imgur-upload",
+    "name": "lymarmaryna/flarum-aws-upload",
     "description": "Simple AWS image upload from the Flarum editor",
     "type": "flarum-extension",
     "license": "GPL-3.0",
