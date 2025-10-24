@@ -1,4 +1,4 @@
-imgur-upload:
+aws-upload:
   admin:
     settings:
       hide-markdown-image: Nascondi pulsante immagine Markdown

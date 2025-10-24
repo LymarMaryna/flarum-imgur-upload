@@ -1,6 +1,6 @@
 <?php
 
-namespace ImgurUpload;
+namespace AwsUpload;
 
 use Flarum\Extend;
 
@@ -12,8 +12,8 @@ return [
         ->js(__DIR__ . '/js/dist/admin.js'),
     new Extend\Locales(__DIR__ . '/locale'),
     (new Extend\Settings)
-        ->serializeToForum('imgur-upload.aws-bucket', 'imgur-upload.aws-bucket')
-        ->serializeToForum('imgur-upload.aws-region', 'imgur-upload.aws-region')
-        ->serializeToForum('imgur-upload.aws-key', 'imgur-upload.aws-key')
-        ->serializeToForum('imgur-upload.aws-secret', 'imgur-upload.aws-secret')
+        ->serializeToForum('aws-upload.aws-bucket', 'aws-upload.aws-bucket')
+        ->serializeToForum('aws-upload.aws-region', 'aws-upload.aws-region')
+        ->serializeToForum('aws-upload.aws-key', 'aws-upload.aws-key')
+        ->serializeToForum('aws-upload.aws-secret', 'aws-upload.aws-secret')
 ];

@@ -22,7 +22,7 @@ export default class UploadButton extends Component {
     onupdate(vnode) {
         super.onupdate(vnode);
 
-        if (!this.isPasteListenerAttached && app.forum.attribute('imgur-upload.allow-paste') === '1') {
+        if (!this.isPasteListenerAttached && app.forum.attribute('aws-upload.allow-paste') === '1') {
             this.isPasteListenerAttached = true;
             this.attrs.textArea.addEventListener('paste', this.paste.bind(this));
         }
@@ -35,16 +35,16 @@ export default class UploadButton extends Component {
         else if (!this.isLoading) buttonIcon = 'far fa-image';
 
         let label = '';
-        if (this.isLoading) label = app.translator.trans('imgur-upload.forum.loading');
-        else if (this.isSuccess) label = app.translator.trans('imgur-upload.forum.done');
-        else if (this.isError) label = app.translator.trans('imgur-upload.forum.error');
+        if (this.isLoading) label = app.translator.trans('aws-upload.forum.loading');
+        else if (this.isSuccess) label = app.translator.trans('aws-upload.forum.done');
+        else if (this.isError) label = app.translator.trans('aws-upload.forum.error');
 
-        return <Tooltip text={app.translator.trans('imgur-upload.forum.upload')}>
+        return <Tooltip text={app.translator.trans('aws-upload.forum.upload')}>
             <Button
                 className={classList([
                     'Button',
                     'hasIcon',
-                    'imgur-upload-button',
+                    'aws-upload-button',
                     label === '' && 'Button--icon',
                 ])}
                 icon={buttonIcon}
@@ -95,19 +95,19 @@ export default class UploadButton extends Component {
         const formData = new FormData();
         formData.append('image', file);
 
-        $.ajax({
-            url: 'https://api.imgur.com/3/image',
-            headers: {
-                'Authorization': 'Client-ID ' + app.forum.attribute('imgur-upload.client-id')
-            },
-            type: 'POST',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: this.success.bind(this),
-            error: this.error.bind(this)
-        });
+        // $.ajax({
+        //     url: 'https://api.aws.com/3/image',
+        //     headers: {
+        //         'Authorization': 'Client-ID ' + app.forum.attribute('aws-upload.client-id')
+        //     },
+        //     type: 'POST',
+        //     data: formData,
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     success: this.success.bind(this),
+        //     error: this.error.bind(this)
+        // });
     }
 
     success(response) {
@@ -117,7 +117,9 @@ export default class UploadButton extends Component {
         this.isSuccess = true;
         m.redraw();
 
-        let stringToInject = this.buildEmbedCode(response.data.link, response.data.width > 1024);
+        let imageUrl = 'https://screenshots.pixelfederation.com/ShareX/2025/10/chrome_7QWYS0NGBR.png';
+
+        let stringToInject = this.buildEmbedCode(imageUrl);
 
         this.attrs.editor.insertAtCursor(stringToInject);
 
@@ -128,20 +130,8 @@ export default class UploadButton extends Component {
         }, 2000);
     }
 
-    buildEmbedCode(imageUrl, isLarge) {
-        let previewUrl = (isLarge ? this.previewUrl(imageUrl) : imageUrl);
-        let embedType = app.forum.attribute('imgur-upload.embed-type');
-
-        if (embedType === 'full-with-link') {
-            return `[URL=${imageUrl}][IMG]${imageUrl}[/IMG][/URL]\n`;
-        } else if (embedType === 'full-without-link') {
-            return `[IMG]${imageUrl}[/IMG]\n`;
-        } else if (embedType === 'preview-without-link') {
-            return `[IMG]${previewUrl}[/IMG]\n`;
-        } else {
-            // Preview with link (default case)
-            return `[URL=${imageUrl}][IMG]${previewUrl}[/IMG][/URL]\n`;
-        }
+    buildEmbedCode(imageUrl) {
+        return `[URL=${imageUrl}][IMG]${imageUrl}[/IMG][/URL]\n`;
     }
 
     previewUrl(url) {
@@ -150,7 +140,7 @@ export default class UploadButton extends Component {
     }
 
     error(response) {
-        $('#imgur-upload-form').val('');
+        $('#aws-upload-form').val('');
 
         this.isLoading = false;
         this.isError = true;

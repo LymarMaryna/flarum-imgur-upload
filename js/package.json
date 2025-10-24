@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "@lymarmaryna/flarum-imgur-upload",
+    "name": "@lymarmaryna/flarum-aws-upload",
     "dependencies": {
         "flarum-webpack-config": "^1.0.0",
         "webpack": "^4.44.2",

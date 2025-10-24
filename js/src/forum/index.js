@@ -3,17 +3,17 @@ import {extend} from 'flarum/common/extend';
 import TextEditor from 'flarum/common/components/TextEditor';
 import UploadButton from './components/UploadButton';
 
-app.initializers.add('imgur-upload', () => {
+app.initializers.add('aws-upload', () => {
     extend(TextEditor.prototype, 'controlItems', function (items) {
         items.add(
-            'imgur-upload',
+            'aws-upload',
             <UploadButton textArea={this.$().parents('.Composer')[0]}
                           editor={this.attrs.composer.editor}/>
         );
     });
 
     extend(TextEditor.prototype, 'toolbarItems', function (items) {
-        if (app.forum.attribute('imgur-upload.hide-markdown-image') !== '1') {
+        if (app.forum.attribute('aws-upload.hide-markdown-image') !== '1') {
             return;
         }
 
