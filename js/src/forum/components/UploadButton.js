@@ -108,9 +108,10 @@ export default class UploadButton extends Component {
         //     success: this.success.bind(this),
         //     error: this.error.bind(this)
         // });
+        this.success();
     }
 
-    success(response) {
+    success() {
         this.$('input').val('');
 
         this.isLoading = false;
