@@ -1,5 +1,5 @@
 {
-    "name": "matteocontrini/flarum-imgur-upload",
+    "name": "lymarmaryna/flarum-imgur-upload",
     "description": "Simple image upload from the Flarum editor",
     "type": "flarum-extension",
     "license": "GPL-3.0",
@@ -25,8 +25,8 @@
         }
     },
     "support": {
-        "issues": "https://github.com/matteocontrini/flarum-imgur-upload/issues",
-        "source": "https://github.com/matteocontrini/flarum-imgur-upload",
+        "issues": "https://github.com/lymarmaryna/flarum-imgur-upload/issues",
+        "source": "https://github.com/lymarmaryna/flarum-imgur-upload",
         "forum": "https://discuss.flarum.org/d/18491"
     },
     "autoload": {

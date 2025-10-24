@@ -4,7 +4,7 @@ const EMBED_TYPES = ['preview-with-link', 'preview-without-link', 'full-with-lin
 
 app.initializers.add('imgur-upload', () => {
     app.extensionData
-        .for('matteocontrini-imgur-upload')
+        .for('lymarmaryna-imgur-upload')
         .registerSetting(
             {
                 setting: 'imgur-upload.client-id',
