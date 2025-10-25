@@ -12,7 +12,6 @@ export default class UploadButton extends Component {
         this.isLoading = false;
         this.isSuccess = false;
         this.isError = false;
-        this.isPasteListenerAttached = false;
     }
 
     oncreate(vnode) {
@@ -21,11 +20,6 @@ export default class UploadButton extends Component {
 
     onupdate(vnode) {
         super.onupdate(vnode);
-
-        if (!this.isPasteListenerAttached && app.forum.attribute('aws-upload.allow-paste') === '1') {
-            this.isPasteListenerAttached = true;
-            this.attrs.textArea.addEventListener('paste', this.paste.bind(this));
-        }
     }
 
     view() {
@@ -59,21 +53,6 @@ export default class UploadButton extends Component {
         </Tooltip>
     }
 
-    paste(e) {
-        if (this.isLoading) return;
-
-        if (e.clipboardData && e.clipboardData.items) {
-            let item = e.clipboardData.items[0];
-
-            if (!item.type.startsWith('image')) {
-                return;
-            }
-
-            let file = item.getAsFile();
-            this.upload(file);
-        }
-    }
-
     buttonClicked(e) {
         this.$('input').click();
     }
@@ -95,32 +74,31 @@ export default class UploadButton extends Component {
         const formData = new FormData();
         formData.append('image', file);
 
-        // $.ajax({
-        //     url: 'https://api.aws.com/3/image',
-        //     headers: {
-        //         'Authorization': 'Client-ID ' + app.forum.attribute('aws-upload.client-id')
-        //     },
-        //     type: 'POST',
-        //     data: formData,
-        //     cache: false,
-        //     contentType: false,
-        //     processData: false,
-        //     success: this.success.bind(this),
-        //     error: this.error.bind(this)
-        // });
-        this.success();
+        const url = app.forum.attribute('apiUrl') + '/aws-upload-image'
+
+        $.ajax({
+            url: url,
+            headers: {
+                Authorization: `Token ${app.session.token}`,
+            },
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: this.success.bind(this),
+            error: this.error.bind(this)
+        });
     }
 
-    success() {
+    success(response) {
         this.$('input').val('');
 
         this.isLoading = false;
         this.isSuccess = true;
         m.redraw();
 
-        let imageUrl = 'https://screenshots.pixelfederation.com/ShareX/2025/10/chrome_7QWYS0NGBR.png';
-
-        let stringToInject = this.buildEmbedCode(imageUrl);
+        let stringToInject = this.buildEmbedCode(response.data.url);
 
         this.attrs.editor.insertAtCursor(stringToInject);
 
@@ -133,11 +111,6 @@ export default class UploadButton extends Component {
 
     buildEmbedCode(imageUrl) {
         return `[URL=${imageUrl}][IMG]${imageUrl}[/IMG][/URL]\n`;
-    }
-
-    previewUrl(url) {
-        let extensionIndex = url.lastIndexOf('.');
-        return url.slice(0, extensionIndex) + 'h' + url.slice(extensionIndex);
     }
 
     error(response) {

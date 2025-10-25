@@ -25,14 +25,9 @@
             "optional-dependencies": ["flarum/markdown"]
         }
     },
-    "support": {
-        "issues": "https://github.com/lymarmaryna/flarum-imgur-upload/issues",
-        "source": "https://github.com/lymarmaryna/flarum-imgur-upload",
-        "forum": "https://discuss.flarum.org/d/18491"
-    },
     "autoload": {
         "psr-4": {
-            "ImgurUpload\\": "src/"
+            "AwsImageUpload\\": "src/"
         }
     }
 }

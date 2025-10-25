@@ -11,15 +11,4 @@ app.initializers.add('aws-upload', () => {
                           editor={this.attrs.composer.editor}/>
         );
     });
-
-    extend(TextEditor.prototype, 'toolbarItems', function (items) {
-        if (app.forum.attribute('aws-upload.hide-markdown-image') !== '1') {
-            return;
-        }
-
-        if (items.items.markdown) {
-            let index = items.items.markdown.content.children.findIndex(x => x.attrs.icon === 'fas fa-image');
-            items.items.markdown.content.children.splice(index, 1);
-        }
-    });
 });
