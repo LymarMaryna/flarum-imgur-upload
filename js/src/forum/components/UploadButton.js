@@ -80,6 +80,7 @@ export default class UploadButton extends Component {
             url: url,
             headers: {
                 Authorization: `Token ${app.session.token}`,
+                'X-CSRF-Token': app.session.csrfToken,
             },
             type: 'POST',
             data: formData,
